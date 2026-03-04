@@ -13,8 +13,6 @@ body {
   place-items: center;
   background: radial-gradient(circle at top, #1c1f2b 0%, #0f1014 65%);
   font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
-  overscroll-behavior: none;
 }
 
 .game-container {
@@ -25,13 +23,10 @@ body {
 }
 
 #gameCanvas {
-  width: min(100vw - 24px, calc((100vh - 24px) * 4 / 3));
-  height: auto;
-  max-height: calc(100vh - 24px);
-  aspect-ratio: 4 / 3;
+  width: 800px;
+  height: 600px;
   border: 3px solid #f3f3f3;
   border-radius: 6px;
   background: #262626;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-  touch-action: none;
 }

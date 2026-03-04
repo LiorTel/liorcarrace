@@ -1,13 +1,8 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-const WORLD_W = 800;
-const WORLD_H = 600;
-canvas.width = WORLD_W;
-canvas.height = WORLD_H;
-
-const GAME_WIDTH = WORLD_W;
-const GAME_HEIGHT = WORLD_H;
+const GAME_WIDTH = canvas.width;
+const GAME_HEIGHT = canvas.height;
 
 const ROAD_WIDTH = 420;
 const ROAD_X = (GAME_WIDTH - ROAD_WIDTH) / 2;
@@ -25,12 +20,6 @@ const road = {
 const keys = {
   left: false,
   right: false
-};
-
-const touchInput = {
-  left: false,
-  right: false,
-  activePointerId: null
 };
 
 const player = {
@@ -92,40 +81,11 @@ function resetGame() {
   lastTimestamp = 0;
 }
 
-function screenToWorld(clientX, clientY) {
-  const rect = canvas.getBoundingClientRect();
-  const worldX = ((clientX - rect.left) / rect.width) * WORLD_W;
-  const worldY = ((clientY - rect.top) / rect.height) * WORLD_H;
-  return { x: worldX, y: worldY };
-}
-
-function setTouchDirectionFromClient(clientX, clientY) {
-  const { x, y } = screenToWorld(clientX, clientY);
-  const insideCanvas = x >= 0 && x <= WORLD_W && y >= 0 && y <= WORLD_H;
-
-  if (!insideCanvas) {
-    touchInput.left = false;
-    touchInput.right = false;
-    return;
-  }
-
-  touchInput.left = x < WORLD_W * 0.5;
-  touchInput.right = !touchInput.left;
-}
-
-function clearTouchDirection() {
-  touchInput.left = false;
-  touchInput.right = false;
-}
-
-function updatePlayer(dt) {
-  const moveLeft = keys.left || touchInput.left;
-  const moveRight = keys.right || touchInput.right;
-
-  if (moveLeft) {
+function handleInput(dt) {
+  if (keys.left) {
     player.x -= player.speed * dt;
   }
-  if (moveRight) {
+  if (keys.right) {
     player.x += player.speed * dt;
   }
 
@@ -191,7 +151,7 @@ function update(dt) {
     return;
   }
 
-  updatePlayer(dt);
+  handleInput(dt);
   updateAI(dt);
 
   road.dashOffset = (road.dashOffset + road.scrollSpeed * dt) % (road.markerHeight + road.markerGap);
@@ -290,38 +250,6 @@ function gameLoop(timestamp) {
   requestAnimationFrame(gameLoop);
 }
 
-
-function onPointerDown(event) {
-  event.preventDefault();
-
-  if (gameOver) {
-    resetGame();
-    return;
-  }
-
-  touchInput.activePointerId = event.pointerId;
-  setTouchDirectionFromClient(event.clientX, event.clientY);
-}
-
-function onPointerMove(event) {
-  if (touchInput.activePointerId !== event.pointerId) {
-    return;
-  }
-
-  event.preventDefault();
-  setTouchDirectionFromClient(event.clientX, event.clientY);
-}
-
-function onPointerUp(event) {
-  if (touchInput.activePointerId !== event.pointerId) {
-    return;
-  }
-
-  event.preventDefault();
-  touchInput.activePointerId = null;
-  clearTouchDirection();
-}
-
 window.addEventListener('keydown', (event) => {
   if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
     keys.left = true;
@@ -343,13 +271,6 @@ window.addEventListener('keyup', (event) => {
     keys.right = false;
   }
 });
-
-
-canvas.addEventListener('pointerdown', onPointerDown, { passive: false });
-canvas.addEventListener('pointermove', onPointerMove, { passive: false });
-canvas.addEventListener('pointerup', onPointerUp, { passive: false });
-canvas.addEventListener('pointercancel', onPointerUp, { passive: false });
-canvas.addEventListener('pointerleave', onPointerUp, { passive: false });
 
 resetGame();
 requestAnimationFrame(gameLoop);

@@ -1,0 +1,124 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  background: radial-gradient(circle at top, #0b1630 0%, #04070f 65%);
+  font-family: 'Orbitron', sans-serif;
+}
+
+#gameRoot {
+  position: fixed;
+  inset: 0;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.panel {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  left: max(12px, env(safe-area-inset-left));
+  padding: 12px 14px;
+  border: 1px solid rgba(34, 211, 238, 0.5);
+  border-radius: 12px;
+  background: rgba(2, 10, 22, 0.55);
+  backdrop-filter: blur(8px);
+  color: #dbeafe;
+  font-size: clamp(12px, 2.4vw, 16px);
+  line-height: 1.55;
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.45);
+  z-index: 15;
+}
+
+#boostButton {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  border: 2px solid rgba(34, 211, 238, 0.9);
+  background: radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.75), rgba(8, 47, 73, 0.9));
+  color: #e0f2fe;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(103, 232, 249, 0.8);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.22);
+  z-index: 20;
+}
+
+#boostButton.active {
+  border-color: rgba(250, 204, 21, 0.95);
+  background: radial-gradient(circle at 30% 30%, rgba(250, 204, 21, 0.85), rgba(180, 83, 9, 0.95));
+  box-shadow: 0 0 26px rgba(251, 191, 36, 0.9), inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  background: rgba(1, 6, 16, 0.68);
+  z-index: 30;
+  padding: 20px;
+}
+
+.overlay.show {
+  display: grid;
+}
+
+.overlay-card {
+  width: min(92vw, 520px);
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid rgba(34, 211, 238, 0.55);
+  background: rgba(5, 18, 34, 0.72);
+  backdrop-filter: blur(10px);
+  padding: 26px 22px 24px;
+  color: #dbeafe;
+  box-shadow: 0 0 34px rgba(34, 211, 238, 0.22);
+}
+
+#overlayTitle {
+  margin: 0 0 18px;
+  font-size: clamp(34px, 8vw, 62px);
+  color: #67e8f9;
+  text-shadow: 0 0 18px rgba(34, 211, 238, 0.7);
+}
+
+#startButton {
+  font-family: inherit;
+  font-size: clamp(18px, 4vw, 26px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 2px solid rgba(34, 211, 238, 0.8);
+  color: #e0f2fe;
+  background: rgba(2, 24, 45, 0.95);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.55);
+}
+
+#overlaySubtitle,
+#overlaySubtitleMobile {
+  margin: 14px 0 0;
+  font-size: clamp(12px, 2.6vw, 17px);
+  color: #cbd5e1;
+}

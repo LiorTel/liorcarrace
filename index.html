@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Neon Rush 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="gameRoot">
+    <canvas id="gameCanvas" aria-label="Neon Rush 3D game"></canvas>
+
+    <div id="hud" class="panel">
+      <div id="scoreLine">Score: 0.0s</div>
+      <div id="distanceLine">Distance: 0 m</div>
+      <div id="bestLine">Best: 0 m</div>
+      <div id="boostLine">BOOST: OFF</div>
+    </div>
+
+    <button id="boostButton" type="button" aria-label="Toggle boost">BOOST</button>
+
+    <div id="overlay" class="overlay show">
+      <div class="overlay-card">
+        <h1 id="overlayTitle">NEON RUSH</h1>
+        <button id="startButton" type="button">START</button>
+        <p id="overlaySubtitle">Press SPACE / ENTER or click START</p>
+        <p id="overlaySubtitleMobile">Tap to start</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
